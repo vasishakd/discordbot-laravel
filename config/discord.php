@@ -10,5 +10,6 @@ return [
     'commands' => [
         'setactivity' => App\Bot\Commands\SetActivity::class,
         'notify' => App\Bot\Commands\Notify::class,
+        'unnotify' => App\Bot\Commands\Unnotify::class,
     ]
 ];
