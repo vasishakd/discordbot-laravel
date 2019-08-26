@@ -64,7 +64,7 @@ class RunBotCommand extends Command
                 $checkers[] = $checkerFactory->getChannelChecker($service);
             }
 
-            $loop->addPeriodicTimer(10, function() use ($client, $checkers) {
+            $loop->addPeriodicTimer(config('discord.notifications_interval'), function() use ($client, $checkers) {
                 foreach ($checkers as $checker) {
                     $checker->online($client);
                 }

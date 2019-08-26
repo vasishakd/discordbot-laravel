@@ -45,7 +45,6 @@ class Unnotify extends Command
             }
 
             $this->message->channel->send($response);
-
         }
     }
 }
