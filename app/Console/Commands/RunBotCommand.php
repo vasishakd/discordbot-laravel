@@ -73,7 +73,7 @@ class RunBotCommand extends Command
         });
 
         $client->on('message', function ($message) use ($client) {
-            if ($message->author->bot || $message->content[0] !== config('discord.prefix')) {
+            if ($message->author->bot || !$message->content || $message->content[0] !== config('discord.prefix')) {
                 return;
             }
 
