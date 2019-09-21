@@ -50,7 +50,7 @@ class RunBotCommand extends Command
         $client = new Client(array(), $loop);
 
         $client->on('error', function ($error) {
-            echo $error . PHP_EOL;
+            throw new \Exception($error);
         });
 
         $client->on('ready', function () use ($client, $loop) {
