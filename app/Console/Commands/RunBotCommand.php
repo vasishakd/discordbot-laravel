@@ -49,6 +49,10 @@ class RunBotCommand extends Command
         $loop = Factory::create();
         $client = new Client(array(), $loop);
 
+        $client->on('disconnect', function ($shard, $code, $reason) {
+            throw new \Exception('Disconnected. code: ' . $code . ' Reason: ' . $reason);
+        });
+
         $client->on('error', function ($error) {
             throw new \Exception($error);
         });
