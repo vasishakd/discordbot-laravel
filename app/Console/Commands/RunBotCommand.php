@@ -9,6 +9,8 @@ use App\Service;
 use CharlotteDunois\Yasmin\Client;
 use CharlotteDunois\Yasmin\Models\MessageEmbed;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use React\EventLoop\Factory;
 
 class RunBotCommand extends Command
@@ -49,12 +51,13 @@ class RunBotCommand extends Command
         $loop = Factory::create();
         $client = new Client(array(), $loop);
 
-        $client->on('disconnect', function ($shard, $code, $reason) {
-            throw new \Exception('Disconnected. code: ' . $code . ' Reason: ' . $reason);
+        $client->on('disconnect', function ($shard, $code, $reason) use ($client) {
+            Log::warning('Disconnected. code: ' . $code . ' Reason: ' . $reason);
+            $client->login(config('discord.token'))->done();
         });
 
         $client->on('error', function ($error) {
-            throw new \Exception($error);
+            Log::error($error);
         });
 
         $client->on('ready', function () use ($client, $loop) {
