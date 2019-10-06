@@ -3,14 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Bot\Strategy\ChannelChecker\ChannelCheckerFactory;
-use App\Channel;
-use App\DiscordChannel;
 use App\Service;
 use CharlotteDunois\Yasmin\Client;
-use CharlotteDunois\Yasmin\Models\MessageEmbed;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use React\EventLoop\Factory;
 
 class RunBotCommand extends Command

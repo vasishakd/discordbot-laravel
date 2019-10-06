@@ -8,6 +8,7 @@ use App\Bot\Contracts\Command;
 use App\Bot\Strategy\ChannelChecker\ChannelCheckerFactory;
 use App\Channel;
 use App\DiscordChannel;
+use App\Events\ChannelCreated;
 use App\Service;
 
 class Notify extends Command
@@ -59,6 +60,8 @@ class Notify extends Command
                     'service_id' => $service->id,
                 ]);
                 $channel->discordChannels()->attach($discordChannel, ['service_id' => $service->id]);
+
+                event(new ChannelCreated($channel));
 
                 $response = $channelKey . ' now notifying';
             } else {

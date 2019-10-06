@@ -10,6 +10,31 @@ class Channel extends Model
         'key', 'service_id'
     ];
 
+    protected $visible = [
+        'id', 'key', 'status', 'service_name', 'links',
+    ];
+
+    protected $appends = [
+        'status', 'service_name', 'links',
+    ];
+
+    public function getStatusAttribute()
+    {
+        return $this->is_live ? 'Online' : 'Offline';
+    }
+
+    public function getServiceNameAttribute()
+    {
+        return $this->service->title;
+    }
+
+    public function getLinksAttribute()
+    {
+        return [
+            'delete' => route('channel.delete', $this),
+        ];
+    }
+
     public function service()
     {
         return $this->belongsTo('App\Service');
