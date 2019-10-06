@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', function () {
+Auth::routes(['register' => false]);
 
+Route::middleware(['auth'])->group(function() {
+    Route::get('/', 'ChannelController@index')->name('channel.index');
+    Route::get('channels', 'ChannelController@index')->name('channel.index');
+    Route::delete('channels/{channel}/delete', 'ChannelController@destroy')->name('channel.delete');
+    Route::get('channels/create', 'ChannelController@create')->name('channel.create');
+    Route::post('channels/create', 'ChannelController@store');
 });
-
-Route::get('channels', 'ChannelController@index')->name('channel.index');
-Route::delete('channels/{channel}/delete', 'ChannelController@destroy')->name('channel.delete');
-Route::get('channels/create', 'ChannelController@create')->name('channel.create');
-Route::post('channels/create', 'ChannelController@store');
